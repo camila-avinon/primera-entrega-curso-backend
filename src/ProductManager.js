@@ -3,7 +3,7 @@ import path from 'path'
 
 class ProductManager {
     constructor() {
-        this.filePath = path.join('./', 'Products.json')
+        this.filePath = path.join('./', 'productos.json')
     }
 
     // Crear producto

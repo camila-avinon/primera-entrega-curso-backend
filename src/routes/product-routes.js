@@ -9,9 +9,9 @@ router.get('/', async (req, res) => {
     res.send(products)
 })
 
-router.get('/:productId', async (req, res) => {
-    const {productId} = req.params
-    const product = await manager.readProduct(productId)
+router.get('/:pId', async (req, res) => {
+    const {pId} = req.params
+    const product = await manager.readProduct(pId)
     if (!product){
         res.status(400).json({status:'error', msg:'Producto no encontrado'})
     }
@@ -27,20 +27,20 @@ router.post('/', async (req, res) => {
     if (newProduct) res.send({status: 'success', msg:"Producto creado"})
 })
 
-router.put('/:productId', async (req, res) => {
-    const {productId} = req.params
+router.put('/:pId', async (req, res) => {
+    const {pId} = req.params
     let newData = req.body
-    newData.id = parseInt(productId)
-    const updatedProduct = manager.updateProduct(productId, newData)
+    newData.id = parseInt(pId)
+    const updatedProduct = manager.updateProduct(pId, newData)
     if (!updatedProduct) {
         res.status(400).json({status:'error', msg:'Error al actualizar el producto'})
     }
     res.send({ status: "success", msg: "Producto actualizado", payload: updatedProduct })
 })
 
-router.delete('/:productId', async (req, res) => {
-    const {productId} = req.params
-    await manager.deleteProduct(productId)
+router.delete('/:pId', async (req, res) => {
+    const {pId} = req.params
+    await manager.deleteProduct(pId)
     res.send({status:'success', 'msg':'Producto eliminado'})
 })
 
