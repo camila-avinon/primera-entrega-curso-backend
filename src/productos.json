@@ -1,11 +1,11 @@
 [
   {
-    "id": 1,
-    "name": "Laptop",
-    "price": 1200,
+    "name": "Laptop Lenovo",
+    "price": 1300,
     "stock": 15,
     "code": "LP1001",
-    "description": "High-performance laptop with 16GB RAM and 512GB SSD."
+    "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
+    "id": 1
   },
   {
     "id": 2,

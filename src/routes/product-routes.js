@@ -30,12 +30,11 @@ router.post('/', async (req, res) => {
 router.put('/:pId', async (req, res) => {
     const {pId} = req.params
     let newData = req.body
-    newData.id = parseInt(pId)
     const updatedProduct = manager.updateProduct(pId, newData)
     if (!updatedProduct) {
         res.status(400).json({status:'error', msg:'Error al actualizar el producto'})
     }
-    res.send({ status: "success", msg: "Producto actualizado", payload: updatedProduct })
+    res.send({status: "success", msg: "Producto actualizado"})
 })
 
 router.delete('/:pId', async (req, res) => {

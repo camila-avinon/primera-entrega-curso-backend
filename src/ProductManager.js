@@ -54,11 +54,11 @@ class ProductManager {
 
     // Actualizar producto
     async updateProduct(pId, productData){
+        productData.id = parseInt(pId)
         const data = await fs.readFile(this.filePath, 'utf-8')
         const products = JSON.parse(data)
         const productPosition = products.findIndex((p => p.id == pId))
-        console.log(productPosition)
-        if (productPosition > 0) {
+        if (productPosition >= 0) {
             products[productPosition] = productData
             await fs.writeFile(this.filePath, JSON.stringify(products, null, 2), 'utf-8')
             return products[productPosition]
