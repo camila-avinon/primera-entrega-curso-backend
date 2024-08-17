@@ -1,62 +1,50 @@
 import fs from 'fs/promises'
 import path from 'path'
 
-class CartManager {
+const filePath = path.resolve('data', 'carritos.json')
+
+export default class CartManager {
     constructor() {
-        this.filePath = path.resolve('data', 'carrito.json')
+        this.carts = []
+        this.init()
     }
 
-    async readCart(cId){
+    async init() {
         try {
-            const data = await fs.readFile(this.filePath, 'utf-8')
-            const carts = JSON.parse(data)
-            const cart = carts.find(c => c.id == cId)
-            return cart.products
+            const data = await fs.readFile(filePath, 'utf-8')
+            this.carts = JSON.parse(data)
         } catch (e) {
-            console.error(`Error al buscar el carrito: ${e}`)
+            console.log(e)
+            this.carts = []
         }
     }
 
-    async createCart(products){
-        try {
-            let carts = []
-            let cart = {}
-            try {
-                const data = await fs.readFile(this.filePath)
-                carts = JSON.parse(data)
-                const newId = Math.floor(Math.random() * 1000 + 1)
-                cart = {id:newId, products:products}
-                console.log(cart)
-                carts.push(cart)
-            }catch(e){
-                console.error(`Error al leer el archivo: ${e}`)
-            }
-
-            // Escribir archivo
-            await fs.writeFile(this.filePath, JSON.stringify(carts, null, 2), 'utf-8')
-            return cart
-        } catch (e) {
-            console.error(`Error al crear producto: ${e}`)
-        }
+    saveFile(){
+        fs.writeFile(filePath, JSON.stringify(this.carts, null, 2))
     }
 
-    async addProduct(cId, pId){
-        try {
-            const data = await fs.readFile(this.filePath, 'utf-8')
-            const carts = JSON.parse(data)
-            const cart = carts.find(c => c.id == cId)
+    readCart(cId){
+        const cart = this.carts.find(c => c.id == cId)
+        return cart.products
+    }
+
+    createCart(products){
+        const newId = Math.floor(Math.random() * 1000 + 1)
+        const cart = {id:newId, products:products}
+        this.carts.push(cart)
+        this.saveFile()
+        return cart
+        
+    }
+
+    addProduct(cId, pId){
+            const cart = this.carts.find(c => c.id == cId)
             let cartProduct = cart.products.find(p => p.id == pId)
             if (cartProduct){
                 cartProduct.quantity ++
             } else {
                 cart.products.push({id: parseInt(pId), quantity:1})
             }
-            await fs.writeFile(this.filePath, JSON.stringify(carts, null, 2), 'utf-8')
-            
-        } catch (e){
-            console.error(`Error al buscar el carrito: ${e}`)
-        }
+            this.saveFile()
     }
 }
-
-export default CartManager

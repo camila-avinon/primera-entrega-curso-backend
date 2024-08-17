@@ -5,9 +5,9 @@ const router = Router()
 const manager = new CartManager()
 
 // Llamar carrito por Id
-router.get('/:cId', async (req, res) => {
+router.get('/:cId', (req, res) => {
     const {cId} = req.params
-    const products = await manager.readCart(cId)
+    const products = manager.readCart(cId)
     if (!products){
         res.status(400).json({status:'error', msg:'Carrito no encontrado'})
     }
@@ -23,12 +23,10 @@ router.post('/', async (req, res) => {
 })
 
 // Agregar producto
-router.post('/:cId/product/:pId', async (req, res) => {
+router.post('/:cId/product/:pId', (req, res) => {
     const {cId, pId} = req.params
-    const {product} = req.body
-    if(!product) res.send({status:'error', msg: 'No se enviaron productos para agregar'})
-
-    await manager.addProduct(cId, pId)
+    manager.addProduct(cId, pId)
+    res.send({status: "Success", msg:"Producto agregado correctamente"})
 })
 
 export default router
