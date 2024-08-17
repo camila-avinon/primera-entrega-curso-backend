@@ -3,7 +3,7 @@ import path from 'path'
 
 class CartManager {
     constructor() {
-        this.filePath = path.join('./', 'carritos.json')
+        this.filePath = path.resolve('data', 'carrito.json')
     }
 
     async readCart(cId){

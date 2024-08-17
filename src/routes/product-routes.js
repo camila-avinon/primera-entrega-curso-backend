@@ -4,31 +4,33 @@ import ProductManager from "../ProductManager.js"
 const router = Router()
 const manager = new ProductManager()
 
-router.get('/', async (req, res) => {
-    const products = await manager.readProducts()
+router.get('/', (req, res) => {
+    const products = manager.readProducts()
     res.send(products)
 })
 
-router.get('/:pId', async (req, res) => {
-    const {pId} = req.params
-    const product = await manager.readProduct(pId)
+router.get('/:pId', (req, res) => {
+    const pId = parseInt(req.params.pId)
+    const product = manager.readProduct(pId)
     if (!product){
-        res.status(400).json({status:'error', msg:'Producto no encontrado'})
+        res.status(400).json({status:'error', msg:'No se encontró el producto'})
     }
     res.send(product)
 })
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     const product = req.body
     if (!product.title || !product.description || !product.code || !product.price || !product.stock || !product.category){
         res.status(400).json({status: 'error', msg:'Campos vacíos'})
     }
-    const newProduct = await manager.createProduct(product)
+    const newProduct = manager.createProduct(product)
     if (newProduct) res.send({status: 'success', msg:"Producto creado"})
 })
 
-router.put('/:pId', async (req, res) => {
-    const {pId} = req.params
+
+
+router.put('/:pId', (req, res) => {
+    const pId = parseInt(req.params.pId)
     let newData = req.body
     const updatedProduct = manager.updateProduct(pId, newData)
     if (!updatedProduct) {
@@ -37,10 +39,10 @@ router.put('/:pId', async (req, res) => {
     res.send({status: "success", msg: "Producto actualizado"})
 })
 
-router.delete('/:pId', async (req, res) => {
-    const {pId} = req.params
-    await manager.deleteProduct(pId)
-    res.send({status:'success', 'msg':'Producto eliminado'})
+router.delete('/:pId', (req, res) => {
+    const pId = parseInt(req.params.pId)
+    manager.deleteProduct(pId)
+    res.send({status: "success", msg: "Producto eliminado"})
 })
 
 
