@@ -1,6 +1,16 @@
 [
   {
-    "id": 304,
+    "id": 150,
+    "title": "Laptop Lenovo",
+    "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
+    "code": "L103",
+    "price": 3000,
+    "stock": 3,
+    "category": "Laptops",
+    "status": true
+  },
+  {
+    "id": 608,
     "title": "Laptop Dell",
     "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
     "code": "L103",
@@ -10,13 +20,63 @@
     "status": true
   },
   {
-    "id": 150,
-    "title": "Laptop Lenovo",
-    "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
-    "code": "L103",
-    "price": 3000,
-    "stock": 3,
-    "category": "Laptops",
+    "id": 561,
+    "title": "Prueba desde el formulario",
+    "price": "123",
+    "description": "Prueba desde el formulario",
+    "code": "222",
+    "stock": "6",
+    "category": "laptops",
+    "status": true
+  },
+  {
+    "id": 858,
+    "title": "Prueba desde el formulario",
+    "price": "123",
+    "description": "Prueba desde el formulario",
+    "code": "222",
+    "stock": "6",
+    "category": "laptops",
+    "status": true
+  },
+  {
+    "id": 137,
+    "title": "Prueba desde el formulario 3",
+    "price": "123",
+    "description": "Prueba desde el formulario",
+    "code": "222",
+    "stock": "6",
+    "category": "laptops",
+    "status": true
+  },
+  {
+    "id": 369,
+    "title": "Prueba desde el formulario 4",
+    "price": "123",
+    "description": "Prueba desde el formulario",
+    "code": "222",
+    "stock": "6",
+    "category": "laptops",
+    "status": true
+  },
+  {
+    "id": 988,
+    "title": "Producto desde el formulario",
+    "price": 123,
+    "description": "Producto desde el formulario",
+    "code": "456",
+    "stock": 2,
+    "category": "laptops",
+    "status": true
+  },
+  {
+    "id": 978,
+    "title": "Hola Soy Cami :))",
+    "price": 123,
+    "description": "Producto desde el formulario",
+    "code": "456",
+    "stock": 2,
+    "category": "laptops",
     "status": true
   }
 ]

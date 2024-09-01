@@ -1,5 +1,5 @@
 import { Router } from "express"
-import ProductManager from "../ProductManager.js"
+import ProductManager from "../services/ProductManager.js"
 
 const router = Router()
 const manager = new ProductManager()
@@ -27,8 +27,6 @@ router.post('/', (req, res) => {
     if (newProduct) res.send({status: 'success', msg:"Producto creado"})
 })
 
-
-
 router.put('/:pId', (req, res) => {
     const pId = parseInt(req.params.pId)
     let newData = req.body
@@ -44,6 +42,7 @@ router.delete('/:pId', (req, res) => {
     manager.deleteProduct(pId)
     res.send({status: "success", msg: "Producto eliminado"})
 })
+
 
 
 export default router

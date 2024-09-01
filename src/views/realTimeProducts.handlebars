@@ -1,0 +1,50 @@
+<!--La misma lista de productos pero trabaja con websockets-->
+<!--cada vez que eliminemos un producto, se debe actualizar automáticamente en dicha vista la lista.-->
+<div>
+    <form id="form" class=" d-flex justify-content-center">
+        <div class="w-75 my-3">
+            <h1>Crear un nuevo producto</h1>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label for="title" class="form-label">Nombre</label>
+                    <input name="title" id="title" type="text" alt="Nombre" class="form-control">
+                </div>
+                <div class="mb-3 col">
+                    <label for="price">Precio</label>
+                    <input name="price" id="price" type="number" alt="Precio" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="mb-3 col">
+                    <label for="stock" class="form-label">Stock</label>
+                    <input name="stock" id="stock" type="number" alt="Stock" class="form-control">
+                </div>            
+                <div class="mb-3 col">
+                    <label for="code" class="form-label">Código</label>
+                    <input name="code" id="code" type="text" alt="Código" class="form-control">
+                </div>
+            </div>
+            <div class="mb-3">
+                <label for="description">Descripción</label>
+                <textarea class="form-control" placeholder="Descripción del producto..." name="description"  id="description"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="category" class="form-label">Categoría</label>
+                <select name="category" class="form-select">
+                    <option value="laptops" id="laptops" selected>Laptops</option>
+                    <option value="smartphones" id="smartphones">Smartphones</option>
+                    <option value="tv" id="tv">TV</option>
+                </select>
+            </div>
+            <div class="d-flex justify-content-end w-100">
+                <button class="btn btn-success">Crear</button>
+
+            </div>
+        </div>
+    </form>
+    <h2 class="text-info mx-2 h2">Lista de productos</h2>
+    <div id="productList">
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
