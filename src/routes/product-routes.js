@@ -5,13 +5,14 @@ import productModel from "../services/db/models/productModel.js"
 const router = Router()
 const manager = new ProductManager()
 
-router.get('/{filter}', async (req, res) => {
+router.get('/', async (req, res) => {
     let limit = parseInt(req.query.limit)
     if (!limit) limit = 10
     let page = parseInt(req.query.page)
     if (!page) page = 1
     let filter = req.query.filter
     let condition = req.query.condition
+    console.log(req.query)
     // console.log(condition)
     // console.log(filter)
     try{
