@@ -2,6 +2,7 @@ import express from 'express'
 import ProductManager from '../services/ProductManager.js'
 import { Server } from 'socket.io'
 import productModel from '../services/db/models/productModel.js'
+import { cartModel } from '../services/db/models/cartModel.js'
 
 const router = express.Router()
 const manager = new ProductManager()
@@ -24,9 +25,11 @@ router.get('/products', async (req, res) => {
     res.render('products', result)
 })
 
-router.get('/home', (req, res) => {
-    const products = manager.readProducts()
-    res.render('home', {products})
+router.get('/cart/:cId', async (req, res) => {
+    const {cId} = req.params
+    const cart = await cartModel.findById(cId).populate('products.product').lean()
+    console.log(cart)
+    res.render('cart', cart)
 })
 
 router.get('/products/:pId', async (req, res) => {

@@ -57,16 +57,21 @@ router.put('/:cId/products/:pId', async (req, res) => {
         await cart.save()
         res.send({status: "Success", msg:"Cantidad modificada correctamente", cart})
     }catch(e){
-        console.log(e)
+        console.log('Error al actualizar la cantidad de producto: ', e)
+        res.status(500).json({error:'Error al actualizar la cantidad de producto', msg:e})
     }
 })
 
 router.delete('/:cId', async (req, res) => {
     const {cId} = req.params
     try{
-        
+        const cart = await cartModel.findById(cId)
+        cart.products = []
+        await cart.save()
+        res.send({status: "Success", msg:"Cantidad modificada correctamente", cart})
     }catch(e){
-        console.log(e)
+        console.log('Error al vaciar el carrito: ', e)
+        res.status(500).json({error:'Error al vaciar el carrito', msg:e})
     }
 })
 
