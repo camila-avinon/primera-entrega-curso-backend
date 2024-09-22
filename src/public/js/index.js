@@ -1,3 +1,26 @@
+async function addToCart(pId) {
+    console.log(pId)
+    const reqBody = {products: {product: pId}}
+
+    try {
+        const res = await fetch('/api/carts', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(reqBody)
+        });
+        const data = await res.json();
+        console.log(data)
+        if (res.ok) {
+            alert('Producto agregado al carrito');
+        }
+        } catch (e) {
+        console.error('Error al agregar el producto al carrito:', e);
+        }
+    }
+
+
 // const socket = io()
 
 // let productForm = document.getElementById('form')

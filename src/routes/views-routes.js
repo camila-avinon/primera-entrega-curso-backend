@@ -13,8 +13,6 @@ router.get('/products', async (req, res) => {
     if (!limit) limit = 10
     let page = parseInt(req.query.page)
     if (!page) page = 1
-    let filter = req.query.filter
-    let condition = req.query.condition
     let sort = req.query.sort
     if (!sort) sort = 'asc'
     const result = await productModel.paginate({},{limit: limit, page:1, sort:{price: sort}, lean: true})
@@ -28,7 +26,6 @@ router.get('/products', async (req, res) => {
 router.get('/cart/:cId', async (req, res) => {
     const {cId} = req.params
     const cart = await cartModel.findById(cId).populate('products.product').lean()
-    console.log(cart)
     res.render('cart', cart)
 })
 
@@ -36,7 +33,6 @@ router.get('/products/:pId', async (req, res) => {
     const pId = req.params.pId
     console.log(pId)
     const product = await productModel.findById(pId)
-    console.log(product)
     res.render('detail', product)
 })
 

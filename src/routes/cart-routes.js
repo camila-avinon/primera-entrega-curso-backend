@@ -7,7 +7,7 @@ const router = Router()
 router.get('/:cId', async (req, res) => {
     const cId = req.params.cId
     try{
-        const cart = await cartModel.findById(cId).populate('products.product');
+        const cart = await cartModel.findById(cId).populate('products.product')
         console.log(cart)
         if (!cart){
             res.status(400).json({status:'error', msg:'Carrito no encontrado'})

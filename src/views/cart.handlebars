@@ -1,7 +1,8 @@
 <div>
     <h1>Carrito</h1>
     <h2>{{_id}}</h2>
-    {{#each product}}
-    <p>{{title}}</p>
+    {{#each products}}
+    <p>{{this.product.title}}</p>
+    <p>{{this.product.price}}</p>
     {{/each}}
 </div>
