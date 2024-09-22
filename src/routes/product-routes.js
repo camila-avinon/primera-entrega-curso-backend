@@ -1,28 +1,24 @@
 import { Router } from "express"
-import ProductManager from "../services/ProductManager.js"
 import productModel from "../services/db/models/productModel.js"
 
 const router = Router()
-const manager = new ProductManager()
 
 router.get('/', async (req, res) => {
     let limit = parseInt(req.query.limit)
     if (!limit) limit = 10
     let page = parseInt(req.query.page)
     if (!page) page = 1
-    let filter = req.query.filter
-    let condition = req.query.condition
     let sort = req.query.sort
     if (!sort) sort = 'asc'
-    
+    let filter = req.query.filter
+    let value = req.query.value
+
+    let filterOptions = {}
+    if (filter && value){
+        filterOptions[filter] = value
+    }
     try{
-        const products = await productModel.paginate({},{limit: limit, page:1, sort:{price: sort}})
-        // if (!filter || !condition){
-        //     let products = await productModel.paginate({},{limit: limit, page:1})
-        // } else {
-        //     let products = await productModel.paginate({filter:"TV"},{limit: limit, page:1})
-        //     res.send({status:'success', payload:products.docs, totalPages:products.totalPages, prevPage: products.prevPage, nextPage: products.nextPage, page:page, hasPrevPage: products.hasPrevPage, hasNextPage: products.hasNextPage})
-        // }
+        const products = await productModel.paginate(filterOptions,{limit: limit, page:1, sort:{price: sort}})
         res.send({status:'success', payload:products.docs, totalPages:products.totalPages, prevPage: products.prevPage, nextPage: products.nextPage, page:page, hasPrevPage: products.hasPrevPage, hasNextPage: products.hasNextPage})
     }catch(e){
         console.log('Error al buscar los productos: ', e)
@@ -83,7 +79,5 @@ router.delete('/:pId', async (req, res) => {
         res.status(500).json({error:'Error al eliminar el producto', msg:e})
     }
 })
-
-
 
 export default router

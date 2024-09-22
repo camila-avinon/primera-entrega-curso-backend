@@ -10,16 +10,6 @@
     "status": true
   },
   {
-    "id": 608,
-    "title": "Laptop Dell",
-    "description": "High-performance laptop with 16GB RAM and 512GB SSD.",
-    "code": "L103",
-    "price": 1300,
-    "stock": 15,
-    "category": "Laptops",
-    "status": true
-  },
-  {
     "id": 561,
     "title": "Prueba desde el formulario",
     "price": "123",

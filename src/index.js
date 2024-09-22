@@ -20,7 +20,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 
 const PORT = 8080
-const manager = new ProductManager()
+mongoose.set('strictPopulate', false);
 
 // Routers
 app.use('/api/products', productRoutes)

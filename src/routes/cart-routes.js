@@ -1,15 +1,13 @@
 import { Router } from "express"
-import CartManager from "../services/CartManager.js"
 import { cartModel } from "../services/db/models/cartModel.js"
 
 const router = Router()
-const manager = new CartManager()
 
 // Llamar carrito por Id
 router.get('/:cId', async (req, res) => {
     const cId = req.params.cId
     try{
-        const cart = await cartModel.findById(cId).populate('products')
+        const cart = await cartModel.findById(cId).populate('products.product');
         console.log(cart)
         if (!cart){
             res.status(400).json({status:'error', msg:'Carrito no encontrado'})
@@ -31,11 +29,34 @@ router.post('/', async (req, res) => {
 // Agregar producto
 router.post('/:cId/product/:pId', async(req, res) => {
     const {cId, pId} = req.params
-    const updatedProduct = await cartModel.findById(cId)
-    const product = updatedProduct.products.find(p => p._id == pId)
-    product.quantity += 1
-    await updatedProduct.save()
-    res.send({status: "Success", msg:"Producto agregado correctamente"})
+    try{
+        const updatedProduct = await cartModel.findById(cId)
+        const product = updatedProduct.products.find(p => p._id == pId)
+        product.quantity += 1
+        await updatedProduct.save()
+        res.send({status: "Success", msg:"Producto agregado correctamente"})
+    }catch(e){
+        console.log(e)
+    }
+})
+
+router.delete('/:cId/products/:pId', async(req, res) => {
+    const {cId, pId} = req.params
+    try{
+        const cart = await cartModel.findById(cId)
+        if (!cart) {
+            return res.status(404).json({msg:'No se encontró el carrito'});
+        }
+        const updatedProducts = cart.products.filter(item => !item.product.equals(pId));
+        if (updatedProducts.length === cart.products.length) {
+            return res.status(404).json({msg:'No se encontró el producto'});
+        }
+        cart.products = updatedProducts
+        await cart.save()
+        res.status(200).json({ msg:'Producto eliminado correctamente'})
+    }catch(e){
+        console.log(e)
+    }
 })
 
 export default router
