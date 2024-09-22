@@ -16,7 +16,7 @@ router.get('/', async (req, res) => {
     if (!sort) sort = 'asc'
     
     try{
-        let products = await productModel.paginate({},{limit: limit, page:1, sort:{price: sort}})
+        const products = await productModel.paginate({},{limit: limit, page:1, sort:{price: sort}})
         // if (!filter || !condition){
         //     let products = await productModel.paginate({},{limit: limit, page:1})
         // } else {
@@ -62,7 +62,7 @@ router.put('/:pId', async (req, res) => {
     const pId = req.params.pId
     let newData = req.body
     try {
-        const updatedProduct = await productModel.updateOne({_id:pId}, newData)
+        const updatedProduct = await cartModel.updateOne({_id:pId}, newData)
         if (!updatedProduct) {
             res.status(400).json({status:'error', msg:'Error al actualizar el producto'})
         }

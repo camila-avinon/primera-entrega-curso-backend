@@ -36,8 +36,6 @@ const connectDB = async () => {
     try {
         await mongoose.connect(uriDB)
         console.log('me conecté :) yeeeeeees')
-        // let res1 = await productModel.find()
-        // console.log(res1)
     } catch (e) {
         console.log('No se pudo conectar a la base de datos: ', e)
         process.exit()
@@ -46,20 +44,20 @@ const connectDB = async () => {
 
 connectDB()
 
-const socketServer = new Server(httpServer)
-socketServer.on('connection', socket=>{
-    console.log('Y la que conecte :*')
-    let products = manager.readProducts() 
-    socket.emit('products', products)
-    socket.on('newProduct', newProduct=>{
-        manager.createProduct(newProduct)
-        products = manager.readProducts() 
-        socket.emit('products', products)
-    })
-    socket.on('deleteProduct', id=>{
-        id=parseInt(id)
-        manager.deleteProduct(id)
-        let products = manager.readProducts() 
-        socket.emit('products', products)
-    })    
-})
+// const socketServer = new Server(httpServer)
+// socketServer.on('connection', socket=>{
+//     console.log('Y la que conecte :*')
+//     let products = manager.readProducts() 
+//     socket.emit('products', products)
+//     socket.on('newProduct', newProduct=>{
+//         manager.createProduct(newProduct)
+//         products = manager.readProducts() 
+//         socket.emit('products', products)
+//     })
+//     socket.on('deleteProduct', id=>{
+//         id=parseInt(id)
+//         manager.deleteProduct(id)
+//         let products = manager.readProducts() 
+//         socket.emit('products', products)
+//     })    
+// })
