@@ -12,12 +12,11 @@ router.get('/', async (req, res) => {
     if (!page) page = 1
     let filter = req.query.filter
     let condition = req.query.condition
-    console.log(req.query)
-    // console.log(condition)
-    // console.log(filter)
+    let sort = req.query.sort
+    if (!sort) sort = 'asc'
+    
     try{
-        let products = await productModel.paginate({filter:condition},{limit: limit, page:1})
-        console.log(products)
+        let products = await productModel.paginate({},{limit: limit, page:1, sort:{price: sort}})
         // if (!filter || !condition){
         //     let products = await productModel.paginate({},{limit: limit, page:1})
         // } else {
