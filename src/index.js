@@ -6,9 +6,10 @@ import { Server } from 'socket.io'
 import productRoutes from './routes/product-routes.js'
 import cartRoutes from './routes/cart-routes.js'
 import ProductManager from './services/ProductManager.js'
+import mongoose from 'mongoose'
+import productModel from './services/db/models/productModel.js'
 
 const app = express()
-
 
 app.engine('handlebars', handlebars.engine())
 app.set('views', __dirname+'/views/')
@@ -27,8 +28,23 @@ app.use('/api/carts', cartRoutes)
 
 app.use('/', viewRouter)
 
-
 const httpServer = app.listen(PORT, () => console.log(`Listening on port: ${PORT}`))
+
+
+const uriDB = 'mongodb+srv://camilaavignon:camilaAvinon@proyectocoderhouse.dlpf4.mongodb.net/proyectoCoderhouse?retryWrites=true&w=majority&appName=ProyectoCoderhouse'
+const connectDB = async () => {
+    try {
+        await mongoose.connect(uriDB)
+        console.log('me conecté :) yeeeeeees')
+        // let res1 = await productModel.find()
+        // console.log(res1)
+    } catch (e) {
+        console.log('No se pudo conectar a la base de datos: ', e)
+        process.exit()
+    }
+}
+
+connectDB()
 
 const socketServer = new Server(httpServer)
 socketServer.on('connection', socket=>{
